@@ -1,0 +1,797 @@
+<head>
+  <title>Eagleview Hill</title>
+  <link rel="stylesheet" type="text/css" href="home_site.css">
+</head>
+
+<body>
+	<h1 class="forSale">FOR SALE</h1>
+	<h1 class="mainHeading">Eagleview Hill</h1>
+	<div class="navBar">
+		<ul class="navBarList">
+			<li class="navItems"><button class="clickChangesPage" data-page='property'>Property</button></li>
+			<li class="navItems"><button class="clickChangesPage" data-page='home'>Home</button></li>
+			<li class="navItems"><button class="clickChangesPage" data-page='winery'>Winery</button></li>
+			<li class="navItems"><button class="clickChangesPage" data-page='gallery'>Gallery</button></li>
+			<li class="navItems"><button class="clickChangesPage" data-page='contact'>Contact Us</button></li>
+		</ul>
+	</div>
+
+	{{#if isPage 'property'}}    
+		{{> property}}
+	{{/if}}
+  	{{#if isPage 'home'}}    
+		{{> home}}
+	{{/if}}
+	{{#if isPage 'winery'}}    
+		{{> winery}}
+	{{/if}}
+	{{#if isPage 'gallery'}}
+		{{> mainGallery}}
+	{{/if}}
+	{{#if isPage 'contact'}}
+		{{> contact}}
+	{{/if}}
+
+</body>
+
+<template name="wineryGallery">
+	<div class="homeSlideshow">
+		<div class="bss-slides slideshow" tabindex="1">
+			<figure>
+		        <img src="/images/winery_slideshow/17.JPG" width="71%" height = "71%" /> 
+		    </figure>
+			<figure>
+		        <img src="/images/winery_slideshow/01.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/02.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/03.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/04.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/05.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/06.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/07.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/08.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/09.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/10.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/12.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/13.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/15.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/winery_slideshow/16.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		</div>
+		<script>
+			var opts = {
+	            //auto-advancing slides? accepts boolean (true/false) or object
+	            auto : { 
+	                // speed to advance slides at. accepts number of milliseconds
+	                speed : 2500, 
+	                // pause advancing on mouseover? accepts boolean
+	                pauseOnHover : true 
+	            }
+	        };
+
+	        var makeBSS = function (el, options) {
+	          var $slideshows = document.querySelectorAll(el), // a collection of all of the slideshow
+	              $slideshow = {},
+	              Slideshow = {
+	                  init: function (el, options) {
+	                      this.counter = 0; // to keep track of current slide
+	                      this.el = el; // current slideshow container    
+	                      this.$items = el.querySelectorAll('figure'); // a collection of all of the slides, caching for performance
+	                      this.numItems = this.$items.length; // total number of slides
+	                      options = options || {}; // if options object not passed in, then set to empty object 
+	                      options.auto = options.auto || false; // if options.auto object not passed in, then set to false
+	                      this.opts = {
+	                          auto: (typeof options.auto === "undefined") ? false : options.auto,
+	                          speed: (typeof options.auto.speed === "undefined") ? 1500 : options.auto.speed,
+	                          pauseOnHover: (typeof options.auto.pauseOnHover === "undefined") ? false : options.auto.pauseOnHover,
+	                          fullScreen: (typeof options.fullScreen === "undefined") ? false : options.fullScreen,
+	                          swipe: (typeof options.swipe === "undefined") ? false : options.swipe
+	                      };
+	                      
+	                      this.$items[0].classList.add('bss-show'); // add show class to first figure 
+	                      this.injectControls(el);
+	                      this.addEventListeners(el);
+	                      if (this.opts.auto) {
+	                          this.autoCycle(this.el, this.opts.speed, this.opts.pauseOnHover);
+	                      }
+	                  },
+	                  showCurrent: function (i) {
+	                      // increment or decrement this.counter depending on whether i === 1 or i === -1
+	                      if (i > 0) {
+	                          this.counter = (this.counter + 1 === this.numItems) ? 0 : this.counter + 1;
+	                      } else {
+	                          this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
+	                      }
+
+	                      // remove .show from whichever element currently has it 
+	                      // http://stackoverflow.com/a/16053538/2006057
+	                      [].forEach.call(this.$items, function (el) {
+	                          el.classList.remove('bss-show');
+	                      });
+	        
+	                      // add .show to the one item that's supposed to have it
+	                      this.$items[this.counter].classList.add('bss-show');
+	                  },
+	                  injectControls: function (el) {
+	                  // build and inject prev/next controls
+	                      // first create all the new elements
+	                      var spanPrev = document.createElement("span"),
+	                          spanNext = document.createElement("span"),
+	                          docFrag = document.createDocumentFragment();
+	              
+	                      // add classes
+	                      spanPrev.classList.add('bss-prev');
+	                      spanNext.classList.add('bss-next');
+	              
+	                      // add contents
+	                      spanPrev.innerHTML = '&laquo;';
+	                      spanNext.innerHTML = '&raquo;';
+	                      
+	                      // append elements to fragment, then append fragment to DOM
+	                      docFrag.appendChild(spanPrev);
+	                      docFrag.appendChild(spanNext);
+	                      el.appendChild(docFrag);
+	                  },
+	                  addEventListeners: function (el) {
+	                      var that = this;
+	                      el.querySelector('.bss-next').addEventListener('click', function () {
+	                          that.showCurrent(1); // increment & show
+	                      }, false);
+	                  
+	                      el.querySelector('.bss-prev').addEventListener('click', function () {
+	                          that.showCurrent(-1); // decrement & show
+	                      }, false);
+	                      
+	                      el.onkeydown = function (e) {
+	                          e = e || window.event;
+	                          if (e.keyCode === 37) {
+	                              that.showCurrent(-1); // decrement & show
+	                          } else if (e.keyCode === 39) {
+	                              that.showCurrent(1); // increment & show
+	                          }
+	                      };
+	                  },
+	                  autoCycle: function (el, speed, pauseOnHover) {
+	                      var that = this,
+	                          interval = window.setInterval(function () {
+	                              that.showCurrent(1); // increment & show
+	                          }, speed);
+	                      
+	                      if (pauseOnHover) {
+	                          el.addEventListener('mouseover', function () {
+	                              interval = clearInterval(interval);
+	                          }, false);
+	                          el.addEventListener('mouseout', function () {
+	                              interval = window.setInterval(function () {
+	                                  that.showCurrent(1); // increment & show
+	                              }, speed);
+	                          }, false);
+	                      } // end pauseonhover
+	                      
+	                  }
+	                  
+	              }; // end Slideshow object .....
+	              
+	          // make instances of Slideshow as needed
+	          [].forEach.call($slideshows, function (el) {
+	              $slideshow = Object.create(Slideshow);
+	              $slideshow.init(el, options);
+	          });
+	      	}
+
+
+			makeBSS('.slideshow', opts);
+
+		</script>
+	</div>
+</template>
+
+<template name="homeGallery">
+	<div class="homeSlideshow">
+		<div class="bss-slides slideshow" tabindex="1">
+		    <figure>
+		        <img src="/images/house_slideshow/house_front.jpg" width="71%" height="71%" />
+		        <figcaption>View from the front yard</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/house_back_summer.jpg" width="71%" height="71%"/>
+		        <figcaption>View from the back yard</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/front_garden.JPG" width="71%" height="71%" />
+		        <figcaption>Front Garden</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/porch_left.JPG" width="71%" height="71%" />
+		        <figcaption>Front Porch</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/08.jpg" width="71%" height="71%" />
+		        <figcaption>Entry</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/glass_table_bottles.JPG" width="71%" height="71%" />
+		        <figcaption>Kitchen Nook</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/dining_room.JPG" width="71%" height="71%" />
+		        <figcaption>Dining Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/living_room_day.jpg" width="71%" height="71%" />
+		        <figcaption>Living Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kitchen_closeup.jpg" width="71%" height="71%" />
+		        <figcaption>Kitchen</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kitchen_pantry.jpg" width="40%" height="40%" />
+		        <figcaption>Kitchen Pantry</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kitchen_from_family.jpg" width="71%" height="71%" />
+		        <figcaption>Family Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/powder_room.jpg" width="40%" height="40%" />
+		        <figcaption>Powder Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/laundry_room.jpg" width="40%" height="40%" />
+		        <figcaption>Laundry Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/laundry_pantry.jpg" width="40%" height="40%" />
+		        <figcaption>Laundry Room Pantry</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/02.jpg" width="71%" height="71%" />
+		        <figcaption>Top of the stairs</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_bed_4.jpg" width="71%" height="71%" />
+		        <figcaption>Master Bedroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_bed_3.jpg" width="71%" height="71%" />
+		        <figcaption>Master Bedroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/03.jpg" width="71%" height="71%" />
+		        <figcaption>Master Closet</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_counter.jpg" width="71%" height="71%"/>
+		        <figcaption>Master Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_bathtub.jpg" width="71%" height="71%" />
+		        <figcaption>Master Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_shower.jpg" width="40%" height="40%" />
+		        <figcaption>Master Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/master_toilet.jpg" width="40%" height="40%" />
+		        <figcaption>Master Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/upstairs_bath_2.jpg" width="40%" height="40%" />
+		        <figcaption>Guest Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/upstairs_shower.jpg" width="40%" height="40%" />
+		        <figcaption>Guest Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/upstair_toilet.jpg" width="40%" height="40%" />
+		        <figcaption>Guest Bathroom</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/01.jpg" width="71%" height="71%" />
+		        <figcaption>Bedroom 1</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kalen_closet.jpg" width="40%" height="40%" />
+		        <figcaption>Bedroom 1 Closet</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kevin_room.jpg" width="71%" height="71%" />
+		        <figcaption>Bedroom 2</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/kevin_closet.jpg" width="40%" height="40%" />
+		        <figcaption>Bedroom 2 Closet</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/07.jpg" width="71%" height="71%" />
+		        <figcaption>Bonus Room</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/gar3.jpg" width="71%" height="71%" />
+		        <figcaption>Garage</figcaption> 
+		    </figure>
+		    <figure>
+		        <img src="/images/house_slideshow/gar5.jpg" width="71%" height="71%" />
+		        <figcaption>Pool Table</figcaption> 
+		    </figure>
+		</div>
+		<script>
+			var opts = {
+	            //auto-advancing slides? accepts boolean (true/false) or object
+	            auto : { 
+	                // speed to advance slides at. accepts number of milliseconds
+	                speed : 2500, 
+	                // pause advancing on mouseover? accepts boolean
+	                pauseOnHover : true 
+	            }
+	        };
+
+	        var makeBSS = function (el, options) {
+	          var $slideshows = document.querySelectorAll(el), // a collection of all of the slideshow
+	              $slideshow = {},
+	              Slideshow = {
+	                  init: function (el, options) {
+	                      this.counter = 0; // to keep track of current slide
+	                      this.el = el; // current slideshow container    
+	                      this.$items = el.querySelectorAll('figure'); // a collection of all of the slides, caching for performance
+	                      this.numItems = this.$items.length; // total number of slides
+	                      options = options || {}; // if options object not passed in, then set to empty object 
+	                      options.auto = options.auto || false; // if options.auto object not passed in, then set to false
+	                      this.opts = {
+	                          auto: (typeof options.auto === "undefined") ? false : options.auto,
+	                          speed: (typeof options.auto.speed === "undefined") ? 1500 : options.auto.speed,
+	                          pauseOnHover: (typeof options.auto.pauseOnHover === "undefined") ? false : options.auto.pauseOnHover,
+	                          fullScreen: (typeof options.fullScreen === "undefined") ? false : options.fullScreen,
+	                          swipe: (typeof options.swipe === "undefined") ? false : options.swipe
+	                      };
+	                      
+	                      this.$items[0].classList.add('bss-show'); // add show class to first figure 
+	                      this.injectControls(el);
+	                      this.addEventListeners(el);
+	                      if (this.opts.auto) {
+	                          this.autoCycle(this.el, this.opts.speed, this.opts.pauseOnHover);
+	                      }
+	                  },
+	                  showCurrent: function (i) {
+	                      // increment or decrement this.counter depending on whether i === 1 or i === -1
+	                      if (i > 0) {
+	                          this.counter = (this.counter + 1 === this.numItems) ? 0 : this.counter + 1;
+	                      } else {
+	                          this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
+	                      }
+
+	                      // remove .show from whichever element currently has it 
+	                      // http://stackoverflow.com/a/16053538/2006057
+	                      [].forEach.call(this.$items, function (el) {
+	                          el.classList.remove('bss-show');
+	                      });
+	        
+	                      // add .show to the one item that's supposed to have it
+	                      this.$items[this.counter].classList.add('bss-show');
+	                  },
+	                  injectControls: function (el) {
+	                  // build and inject prev/next controls
+	                      // first create all the new elements
+	                      var spanPrev = document.createElement("span"),
+	                          spanNext = document.createElement("span"),
+	                          docFrag = document.createDocumentFragment();
+	              
+	                      // add classes
+	                      spanPrev.classList.add('bss-prev');
+	                      spanNext.classList.add('bss-next');
+	              
+	                      // add contents
+	                      spanPrev.innerHTML = '&laquo;';
+	                      spanNext.innerHTML = '&raquo;';
+	                      
+	                      // append elements to fragment, then append fragment to DOM
+	                      docFrag.appendChild(spanPrev);
+	                      docFrag.appendChild(spanNext);
+	                      el.appendChild(docFrag);
+	                  },
+	                  addEventListeners: function (el) {
+	                      var that = this;
+	                      el.querySelector('.bss-next').addEventListener('click', function () {
+	                          that.showCurrent(1); // increment & show
+	                      }, false);
+	                  
+	                      el.querySelector('.bss-prev').addEventListener('click', function () {
+	                          that.showCurrent(-1); // decrement & show
+	                      }, false);
+	                      
+	                      el.onkeydown = function (e) {
+	                          e = e || window.event;
+	                          if (e.keyCode === 37) {
+	                              that.showCurrent(-1); // decrement & show
+	                          } else if (e.keyCode === 39) {
+	                              that.showCurrent(1); // increment & show
+	                          }
+	                      };
+	                  },
+	                  autoCycle: function (el, speed, pauseOnHover) {
+	                      var that = this,
+	                          interval = window.setInterval(function () {
+	                              that.showCurrent(1); // increment & show
+	                          }, speed);
+	                      
+	                      if (pauseOnHover) {
+	                          el.addEventListener('mouseover', function () {
+	                              interval = clearInterval(interval);
+	                          }, false);
+	                          el.addEventListener('mouseout', function () {
+	                              interval = window.setInterval(function () {
+	                                  that.showCurrent(1); // increment & show
+	                              }, speed);
+	                          }, false);
+	                      } // end pauseonhover
+	                      
+	                  }
+	                  
+	              }; // end Slideshow object .....
+	              
+	          // make instances of Slideshow as needed
+	          [].forEach.call($slideshows, function (el) {
+	              $slideshow = Object.create(Slideshow);
+	              $slideshow.init(el, options);
+	          });
+	      	}
+
+
+			makeBSS('.slideshow', opts);
+
+		</script>
+	</div>
+</template>
+
+
+<template name="mainGallery" data-page="gallery">
+	<div class="about">
+		<div class="bss-slides2 slideshow" tabindex="1">
+		    <figure>
+		        <img src="/images/gallery_slideshow/003.JPG" width="71%" height = "71%" />
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/020.JPG" width="71%" height = "71%" />
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/023.JPG" width="71%" height = "71%" />
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/025.JPG" width="71%" height = "71%" />
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/045.JPG" width="71%" height = "71%" />
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/04.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/13.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/08.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/09.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/16.JPG" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/18.jpg" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/23.jpg" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/28.jpg" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/31.jpg" width="71%" height = "71%" /> 
+		    </figure>
+		    <figure>
+		        <img src="/images/gallery_slideshow/40.jpg" width="71%" height = "71%" /> 
+		    </figure>
+
+		</div>
+		<script>
+			var opts = {
+	            //auto-advancing slides? accepts boolean (true/false) or object
+	            auto : { 
+	                // speed to advance slides at. accepts number of milliseconds
+	                speed : 2500, 
+	                // pause advancing on mouseover? accepts boolean
+	                pauseOnHover : true 
+	            }
+	        };
+
+	        var makeBSS = function (el, options) {
+	          var $slideshows = document.querySelectorAll(el), // a collection of all of the slideshow
+	              $slideshow = {},
+	              Slideshow = {
+	                  init: function (el, options) {
+	                      this.counter = 0; // to keep track of current slide
+	                      this.el = el; // current slideshow container    
+	                      this.$items = el.querySelectorAll('figure'); // a collection of all of the slides, caching for performance
+	                      this.numItems = this.$items.length; // total number of slides
+	                      options = options || {}; // if options object not passed in, then set to empty object 
+	                      options.auto = options.auto || false; // if options.auto object not passed in, then set to false
+	                      this.opts = {
+	                          auto: (typeof options.auto === "undefined") ? false : options.auto,
+	                          speed: (typeof options.auto.speed === "undefined") ? 1500 : options.auto.speed,
+	                          pauseOnHover: (typeof options.auto.pauseOnHover === "undefined") ? false : options.auto.pauseOnHover,
+	                          fullScreen: (typeof options.fullScreen === "undefined") ? false : options.fullScreen,
+	                          swipe: (typeof options.swipe === "undefined") ? false : options.swipe
+	                      };
+	                      
+	                      this.$items[0].classList.add('bss-show'); // add show class to first figure 
+	                      this.injectControls(el);
+	                      this.addEventListeners(el);
+	                      if (this.opts.auto) {
+	                          this.autoCycle(this.el, this.opts.speed, this.opts.pauseOnHover);
+	                      }
+	                  },
+	                  showCurrent: function (i) {
+	                      // increment or decrement this.counter depending on whether i === 1 or i === -1
+	                      if (i > 0) {
+	                          this.counter = (this.counter + 1 === this.numItems) ? 0 : this.counter + 1;
+	                      } else {
+	                          this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
+	                      }
+
+	                      // remove .show from whichever element currently has it 
+	                      // http://stackoverflow.com/a/16053538/2006057
+	                      [].forEach.call(this.$items, function (el) {
+	                          el.classList.remove('bss-show');
+	                      });
+	        
+	                      // add .show to the one item that's supposed to have it
+	                      this.$items[this.counter].classList.add('bss-show');
+	                  },
+	                  injectControls: function (el) {
+	                  // build and inject prev/next controls
+	                      // first create all the new elements
+	                      var spanPrev = document.createElement("span"),
+	                          spanNext = document.createElement("span"),
+	                          docFrag = document.createDocumentFragment();
+	              
+	                      // add classes
+	                      spanPrev.classList.add('bss-prev');
+	                      spanNext.classList.add('bss-next');
+	              
+	                      // add contents
+	                      spanPrev.innerHTML = '&laquo;';
+	                      spanNext.innerHTML = '&raquo;';
+	                      
+	                      // append elements to fragment, then append fragment to DOM
+	                      docFrag.appendChild(spanPrev);
+	                      docFrag.appendChild(spanNext);
+	                      el.appendChild(docFrag);
+	                  },
+	                  addEventListeners: function (el) {
+	                      var that = this;
+	                      el.querySelector('.bss-next').addEventListener('click', function () {
+	                          that.showCurrent(1); // increment & show
+	                      }, false);
+	                  
+	                      el.querySelector('.bss-prev').addEventListener('click', function () {
+	                          that.showCurrent(-1); // decrement & show
+	                      }, false);
+	                      
+	                      el.onkeydown = function (e) {
+	                          e = e || window.event;
+	                          if (e.keyCode === 37) {
+	                              that.showCurrent(-1); // decrement & show
+	                          } else if (e.keyCode === 39) {
+	                              that.showCurrent(1); // increment & show
+	                          }
+	                      };
+	                  },
+	                  autoCycle: function (el, speed, pauseOnHover) {
+	                      var that = this,
+	                          interval = window.setInterval(function () {
+	                              that.showCurrent(1); // increment & show
+	                          }, speed);
+	                      
+	                      if (pauseOnHover) {
+	                          el.addEventListener('mouseover', function () {
+	                              interval = clearInterval(interval);
+	                          }, false);
+	                          el.addEventListener('mouseout', function () {
+	                              interval = window.setInterval(function () {
+	                                  that.showCurrent(1); // increment & show
+	                              }, speed);
+	                          }, false);
+	                      } // end pauseonhover
+	                      
+	                  }
+	                  
+	              }; // end Slideshow object .....
+	              
+	          // make instances of Slideshow as needed
+	          [].forEach.call($slideshows, function (el) {
+	              $slideshow = Object.create(Slideshow);
+	              $slideshow.init(el, options);
+	          });
+	      	}
+
+			makeBSS('.slideshow', opts);
+		</script>
+		<p class="mouseTip">
+				Hover mouse over picture to pause slideshow
+		</p>
+	</div>
+</template>
+
+<template name="mapLoc">
+	<div class="mapContainer">
+		{{> googleMap name="map" options=mapOptions}}
+	</div>
+</template>
+
+<template name="property" data-page="property">
+	<div class="about">
+		<img id="mount_sun" src="/images/mountain_sunrise2.jpg">
+        <p>The McCrea home is located at the top of Eagleview hill with a stunning view of Mount Rainier.  Beautiful sunrises and sunsets most of the year and a big clear sky at night is perfect for star gazing. There is a lower level parking area for hosting large events and an unused 5-acre plot of land that could be broken off and sold with county approval. The hillside below the winery is perfect for planting vines or fruit trees.  The well is 212 feet deep with 35 gallon a minute water flow along with a well house for storage. Eagleview Lane is asphalted and the entire driveway up to the house and winery are as well.</p>
+        <p>The home is 3,800 sq. ft. on 20 acres of land with a turnkey-ready 4,000 sq. ft. winery and 800 sq. ft. asphalted landing below.</p>
+        <h4>Other Features</h4>
+        <ul>
+			<li>1000 gallon propane tank for the home and 500 gallon for winery.  Both leased. House has two septic tanks and winery has one </li>
+			<li>Ready-to-use 8 X 10 storage shed with several bins for storing wood in the winters </li>
+			<li>Underground sprinkler system covering approximately 10,000 sq.ft. of lawn </li>
+    	</ul>
+    	{{> mapLoc}}
+    </div>
+
+</template>
+
+<template name="home" data-page="home">
+	<div class="about">
+		<BR/>
+		<div class="mountain_sunrise">
+			{{> homeGallery}}
+			<p class="mouseTip">
+				Hover mouse over picture to pause slideshow
+			</p>
+			<!--<img id="house_back" src="/images/house_back_winter2.jpg">-->
+		</div>
+		<p>
+			Beautiful country style home with wrap around wood front porch.  Back yard has wood deck and patio with view of Mt Rainier.  Gas outlet for BBQ grill.  Home totally equipped with an alarm system.
+			Downstairs area was completely designed for large gatherings or small intimate ones. All downstairs has upgraded Pergo wood except living room and 9 ft ceilings, with  family room having vaulted two story ceiling .  Lots of windows all throughout. 
+		</p>
+		<h3>First Floor</h3>
+		<h4 style="padding-left: 50px">Family Room:</h4>
+		<p style="padding-left: 100px">
+			Huge vaulted ceilings with windows to match, that perfectly frames Mt. Rainier.  Quadra-Fire wood stove that puts out a lot of heat.  Door out to the patio.
+		</p>
+		<h4 style="padding-left: 50px">Kitchen:</h4>
+		<p style="padding-left: 100px">
+			GE stainless steel appliances including side by side refrigerator, dishwasher, double oven, large and deep 2 sided Kohler stainless steel sink,  four burner Wolf gas stove, more than enough counter space and desk.  Huge work area and pantry.  Canned lighting in ceiling and rope lighting under the top and lower cabinets.
+		</p>
+		<h4 style="padding-left: 50px">Dining Room:</h4>
+		<p style="padding-left: 100px">
+			Designed to comfortably seat 18 people at the table.   Canned lighting and rope lighting in the ceiling.  3 big windows provide mountain view and door to the patio. Beautiful window pocket doors separate kitchen and dining room.  The Tuscan colored walls in the dining and living room provide a warm atmosphere.  A perfect room for entertaining.  
+		</p>
+		<h4 style="padding-left: 50px">Living Room:</h4>
+		<p style="padding-left: 100px">
+			Large area with burgundy carpet, a beautiful gas fireplace with brick designed to match carpet and walls and arched wall between dining room and living room.
+		</p>
+		<h4 style="padding-left: 50px">Powder Room:</h4>
+		<p style="padding-left: 100px">
+			Single standing sink and toilet.
+		</p>
+		<h4 style="padding-left: 50px">Laundry Room:</h4>
+		<p style="padding-left: 100px">
+			Includes dryer and new washer,  second large pantry, coat closet and utility sink.  
+		</p>
+		<h3>Second Floor</h3>
+		<h4 style="padding-left: 50px">Master Bedroom:</h4>
+		<p style="padding-left: 100px">
+			Big spacious room with mountain view and short wall separating bed area and sitting area that includes a gas fireplace and ceiling fan.
+		</p>
+		<h4 style="padding-left: 50px">Five-Piece Master Bath:</h4>
+		<p style="padding-left: 100px">
+			Two sinks with lots of counter space, shower built for two, deep soaking tub.  Enclosed private toilet area.  Huge walk in closet with 3 small windows and plenty of shelving.  
+		</p>
+		<h4 style="padding-left: 50px">Additional Bedrooms:</h4>
+		<p style="padding-left: 100px">
+			Both are very large rooms with walk in closets and ceiling fans.  Both have unique and individual shapes.
+		</p>
+		<h4 style="padding-left: 50px">Second Bathroom:</h4>
+		<p style="padding-left: 100px">
+			Has single sink and tub/shower combo.  Enclosed private toilet.
+		</p>
+		<h4 style="padding-left: 50px">Office:</h4>
+		<p style="padding-left: 100px">
+			Good size room with mountain view. 
+		</p>
+		<h4 style="padding-left: 50px">Bonus Room:</h4>
+		<p style="padding-left: 100px">
+			Built to be a game room.  Lots of great space and big windows at each end of it with ceiling fan.
+		</p>
+	</div>
+</template>
+
+<template name="winery" data-page="winery">
+	<div class="about">
+		<BR/>
+		<div class="mountain_sunrise">
+			{{> wineryGallery}}
+			<p class="mouseTip">
+				Hover mouse over picture to pause slideshow
+			</p>
+		</div>
+		<p>
+			Turn-key winery building constructed with standards identical to the house.
+		</p>
+		<p>
+			Three separate rooms of 1,400 square feet each providing independent cooling-heating for each.  Two rooms attached in an “L” and connected with wide double doors.
+		</p>
+		<p>
+			Third room is set off and connected to the other two rooms by an 800 square foot steel-covering providing a protected crush area from rain and wind.  
+		</p>
+		<p>
+			Roll-up doors accommodate fork-lifting barrels two tiers high or two pallets high on both buildings.
+		</p>
+		<p>
+			Artisan-crafted double main doors of solid fir, 3” thick.
+		</p>
+		<p>
+			Interior of rooms dry-wall with 2’ stem walls for hosing down floor.  12 foot wall height above stem walls.
+		</p>
+		<p>
+			Hose bibs on all front-of-building walls, including outside hot water spigot.
+		</p>
+		<p>
+			Electrical outlets strategically located under covered area providing both 120 and 220 volt power and phase converter for 3-phase power.
+		</p>
+		<p>
+			Florescent light on ceiling of all rooms and dimmer-controlled sconce lighting on all walls providing increased lighting or muted lighting for entertainment.
+		</p>
+		<p>
+			Large office with countertop and significant storage cabinetry below and above countertop and on opposite wall.  Bright lighting on bottom side of upper cabinetry illuminating the countertop.  Built-in desk in office including DSL availability.
+		</p>
+		<p>
+			Deep stainless steel double-sink in main building with countertop, storage cabinetry above and below, and rack for fittings such as clamps, reducers, valves, etc.   
+		</p>
+		<p>
+			Some winery equipment available to be purchased separately.  Price negotiable.
+		</p>
+	</div>
+</template>
+
+<template name="contact" data-page="contact">
+	<div class="about">
+		<h2 text-align="center">
+			Contact Kim or Doug by phone at (360)446-8466 or by email at doug@salidawine.com
+		</h2>
+	</div>
+</template>
