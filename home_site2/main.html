@@ -1,0 +1,46 @@
+<head>
+  <title>Eagleview Hill</title>
+  <link rel="stylesheet" type="text/css" href="home_site.css">
+  <script type="text/javascript" src="home_site.js"></script>
+  <script src="http://maps.googleapis.com/maps/api/js"></script>
+  <script>
+	function initialize() {
+	  var mapProp = {
+	    center:new google.maps.LatLng(46.921250, -122.667481),
+	    zoom:13,
+	    mapTypeId:google.maps.MapTypeId.ROADMAP
+	  };
+	  var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	  var marker=new google.maps.Marker({
+	  	position:new google.maps.LatLng(46.921250, -122.667481),
+	  });
+	  marker.setMap(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+	<h1 class="forSale">FOR SALE</h1>
+	<h1 class="mainHeading">Eagleview Hill</h1>
+	<div class="navBar">
+		<ul class="navBarList">
+			<li><a class="active" href="main.html">Property</a></li>
+			<li><a href="home.html">Home</a></li>
+			<li><a href="winery.html">Winery</a></li>
+			<li><a href="gallery.html">Gallery</a></li>
+			<li><a href="contact.html">Contact Us</a></li>
+		</ul>
+	</div>
+	<div class="about">
+		<img id="mount_sun" src="public/images/mountain_sunrise2.jpg">
+        <p>The McCrea home is located at the top of Eagleview hill with a stunning view of Mount Rainier.  Beautiful sunrises and sunsets most of the year and a big clear sky at night is perfect for star gazing. There is a lower level parking area for hosting large events and an unused 5-acre plot of land that could be broken off and sold with county approval. The hillside below the winery is perfect for planting vines or fruit trees.  The well is 212 feet deep with 35 gallon a minute water flow along with a well house for storage. Eagleview Lane is asphalted and the entire driveway up to the house and winery are as well.</p>
+        <p>The home is 3,800 sq. ft. on 20 acres of land with a turnkey-ready 4,000 sq. ft. winery and 800 sq. ft. asphalted landing below.</p>
+        <h4>Other Features</h4>
+		<p id="property_p">1000 gallon propane tank for the home and 500 gallon for winery.  Both leased. House has two septic tanks and winery has one </p>
+		<p id="property_p">Ready-to-use 8 X 10 storage shed with several bins for storing wood in the winters </p>
+		<p id="property_p">Underground sprinkler system covering approximately 10,000 sq.ft. of lawn </p>
+    	<div id="googleMap"></div>
+    </div>
+
+</body>

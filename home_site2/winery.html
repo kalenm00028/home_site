@@ -1,0 +1,237 @@
+<head>
+  <title>Eagleview Hill</title>
+  <link rel="stylesheet" type="text/css" href="home_site.css">
+  <script type="text/javascript" src="home_site.js"></script>
+</head>
+
+<body>
+	<h1 class="forSale">FOR SALE</h1>
+	<h1 class="mainHeading">Eagleview Hill</h1>
+	<div class="navBar">
+		<ul class="navBarList">
+			<li><a href="main.html">Property</a></li>
+			<li><a href="home.html">Home</a></li>
+			<li><a class="active" href="winery.html">Winery</a></li>
+			<li><a href="gallery.html">Gallery</a></li>
+			<li><a href="contact.html">Contact Us</a></li>
+		</ul>
+	</div>
+	<div class="about">
+		<BR/>
+		<div class="mountain_sunrise">
+			<div class="homeSlideshow">
+				<div class="bss-slides slideshow" tabindex="1">
+					<figure>
+				        <img src="public/images/winery_slideshow/17.JPG" width="71%" height = "91%" /> 
+				    </figure>
+					<figure>
+				        <img src="public/images/winery_slideshow/01.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/02.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/03.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/04.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/05.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/06.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/07.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/08.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/09.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/10.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/12.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/13.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/15.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				    <figure>
+				        <img src="public/images/winery_slideshow/16.JPG" width="71%" height = "91%" /> 
+				    </figure>
+				</div>
+				<script>
+					var opts = {
+			            //auto-advancing slides? accepts boolean (true/false) or object
+			            auto : { 
+			                // speed to advance slides at. accepts number of milliseconds
+			                speed : 2500, 
+			                // pause advancing on mouseover? accepts boolean
+			                pauseOnHover : true 
+			            }
+			        };
+
+			        var makeBSS = function (el, options) {
+			          var $slideshows = document.querySelectorAll(el), // a collection of all of the slideshow
+			              $slideshow = {},
+			              Slideshow = {
+			                  init: function (el, options) {
+			                      this.counter = 0; // to keep track of current slide
+			                      this.el = el; // current slideshow container    
+			                      this.$items = el.querySelectorAll('figure'); // a collection of all of the slides, caching for performance
+			                      this.numItems = this.$items.length; // total number of slides
+			                      options = options || {}; // if options object not passed in, then set to empty object 
+			                      options.auto = options.auto || false; // if options.auto object not passed in, then set to false
+			                      this.opts = {
+			                          auto: (typeof options.auto === "undefined") ? false : options.auto,
+			                          speed: (typeof options.auto.speed === "undefined") ? 1500 : options.auto.speed,
+			                          pauseOnHover: (typeof options.auto.pauseOnHover === "undefined") ? false : options.auto.pauseOnHover,
+			                          fullScreen: (typeof options.fullScreen === "undefined") ? false : options.fullScreen,
+			                          swipe: (typeof options.swipe === "undefined") ? false : options.swipe
+			                      };
+			                      
+			                      this.$items[0].classList.add('bss-show'); // add show class to first figure 
+			                      this.injectControls(el);
+			                      this.addEventListeners(el);
+			                      if (this.opts.auto) {
+			                          this.autoCycle(this.el, this.opts.speed, this.opts.pauseOnHover);
+			                      }
+			                  },
+			                  showCurrent: function (i) {
+			                      // increment or decrement this.counter depending on whether i === 1 or i === -1
+			                      if (i > 0) {
+			                          this.counter = (this.counter + 1 === this.numItems) ? 0 : this.counter + 1;
+			                      } else {
+			                          this.counter = (this.counter - 1 < 0) ? this.numItems - 1 : this.counter - 1;
+			                      }
+
+			                      // remove .show from whichever element currently has it 
+			                      // http://stackoverflow.com/a/16053538/2006057
+			                      [].forEach.call(this.$items, function (el) {
+			                          el.classList.remove('bss-show');
+			                      });
+			        
+			                      // add .show to the one item that's supposed to have it
+			                      this.$items[this.counter].classList.add('bss-show');
+			                  },
+			                  injectControls: function (el) {
+			                  // build and inject prev/next controls
+			                      // first create all the new elements
+			                      var spanPrev = document.createElement("span"),
+			                          spanNext = document.createElement("span"),
+			                          docFrag = document.createDocumentFragment();
+			              
+			                      // add classes
+			                      spanPrev.classList.add('bss-prev');
+			                      spanNext.classList.add('bss-next');
+			              
+			                      // add contents
+			                      spanPrev.innerHTML = '&laquo;';
+			                      spanNext.innerHTML = '&raquo;';
+			                      
+			                      // append elements to fragment, then append fragment to DOM
+			                      docFrag.appendChild(spanPrev);
+			                      docFrag.appendChild(spanNext);
+			                      el.appendChild(docFrag);
+			                  },
+			                  addEventListeners: function (el) {
+			                      var that = this;
+			                      el.querySelector('.bss-next').addEventListener('click', function () {
+			                          that.showCurrent(1); // increment & show
+			                      }, false);
+			                  
+			                      el.querySelector('.bss-prev').addEventListener('click', function () {
+			                          that.showCurrent(-1); // decrement & show
+			                      }, false);
+			                      
+			                      el.onkeydown = function (e) {
+			                          e = e || window.event;
+			                          if (e.keyCode === 37) {
+			                              that.showCurrent(-1); // decrement & show
+			                          } else if (e.keyCode === 39) {
+			                              that.showCurrent(1); // increment & show
+			                          }
+			                      };
+			                  },
+			                  autoCycle: function (el, speed, pauseOnHover) {
+			                      var that = this,
+			                          interval = window.setInterval(function () {
+			                              that.showCurrent(1); // increment & show
+			                          }, speed);
+			                      
+			                      if (pauseOnHover) {
+			                          el.addEventListener('mouseover', function () {
+			                              interval = clearInterval(interval);
+			                          }, false);
+			                          el.addEventListener('mouseout', function () {
+			                              interval = window.setInterval(function () {
+			                                  that.showCurrent(1); // increment & show
+			                              }, speed);
+			                          }, false);
+			                      } // end pauseonhover
+			                      
+			                  }
+			                  
+			              }; // end Slideshow object .....
+			              
+			          // make instances of Slideshow as needed
+			          [].forEach.call($slideshows, function (el) {
+			              $slideshow = Object.create(Slideshow);
+			              $slideshow.init(el, options);
+			          });
+			      	}
+
+
+					makeBSS('.slideshow', opts);
+
+				</script>
+			</div>
+			<p class="mouseTip">
+				Hover mouse over picture to pause slideshow
+			</p>
+			</div>
+		<p>
+			Turn-key winery building constructed with standards identical to the house.
+		</p>
+		<p>
+			Three separate rooms of 1,400 square feet each providing independent cooling-heating for each.  Two rooms attached in an 'L' and connected with wide double doors.
+		</p>
+		<p>
+			Third room is set off and connected to the other two rooms by an 800 square foot steel-covering providing a protected crush area from rain and wind.  
+		</p>
+		<p>
+			Roll-up doors accommodate fork-lifting barrels two tiers high or two pallets high on both buildings.
+		</p>
+		<p>
+			Artisan-crafted double main doors of solid fir, 3 inches thick.
+		</p>
+		<p>
+			Interior of rooms dry-wall with 2 foot stem walls for hosing down floor.  12 foot wall height above stem walls.
+		</p>
+		<p>
+			Hose bibs on all front-of-building walls, including outside hot water spigot.
+		</p>
+		<p>
+			Electrical outlets strategically located under covered area providing both 120 and 220 volt power and phase converter for 3-phase power.
+		</p>
+		<p>
+			Florescent light on ceiling of all rooms and dimmer-controlled sconce lighting on all walls providing increased lighting or muted lighting for entertainment.
+		</p>
+		<p>
+			Large office with countertop and significant storage cabinetry below and above countertop and on opposite wall.  Bright lighting on bottom side of upper cabinetry illuminating the countertop.  Built-in desk in office including DSL availability.
+		</p>
+		<p>
+			Deep stainless steel double-sink in main building with countertop, storage cabinetry above and below, and rack for fittings such as clamps, reducers, valves, etc.   
+		</p>
+		<p>
+			Some winery equipment available to be purchased separately.  Price negotiable.
+		</p>
+	</div>
+</body>
